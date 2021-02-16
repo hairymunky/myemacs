@@ -1,5 +1,5 @@
-(setq user-full-name "Real Name Here"
-      user-mail-address "Real Email Address Here")
+(setq user-full-name "Graham Kerr"
+      user-mail-address "hairymunky@gmail.com")
 
 (require 'package)
 (setq package-enable-at-startup nil)
@@ -37,13 +37,13 @@
       scroll-preserve-screen-position 1)
 
 ;; font
-(set-frame-font "Hack 12" nil t)
+(set-frame-font "SourceCodePro-10" nil t)
+(load-theme 'blue-mood t t)
+(enable-theme 'blue-mood)
 
-(use-package doom-themes
-	     :ensure t
-	     :config
-	     (load-theme 'doom-one t)
-	     (doom-themes-visual-bell-config))
+;; neotree
+(require 'neotree)
+(global-set-key [f8] 'neotree-toggle)
 
 (use-package smart-mode-line-powerline-theme
 	     :ensure t)
@@ -86,10 +86,22 @@
  '(custom-safe-themes
    '("84d2f9eeb3f82d619ca4bfffe5f157282f4779732f48a5ac1484d94d5ff5b279" default))
  '(package-selected-packages
-   '(flycheck company diminish smart-mode-line-powerline-theme doom-themes use-package)))
+   '(hl-todo neotree color-theme-modern magit flycheck company diminish smart-mode-line-powerline-theme doom-themes use-package)))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  )
+
+(use-package hl-todo
+  :hook (prog-mode . hl-todo-mode)
+  :config
+  (setq hl-todo-highlight-punctuation ":"
+	hl-todo-keyword-faces
+	`(("TODO"     warning bold)
+	  ("FIXME"    error bold)
+	  ("HACK"     font-lock-constant-face bold)
+	  ("REVIEW"   font-lock-keyword-face bold)
+	  ("NOTE"     success bold)
+	  ("DEPRECATED" font-lock-doc-face bold))))
